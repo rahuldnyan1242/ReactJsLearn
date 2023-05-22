@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <!-- <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <title>Learn React Js</title>
 </head>
@@ -16,9 +17,15 @@
     <div id="mydiv"></div>
 
     <script type="text/babel">
+        const clickAlert=()=>alert("Hello React!");
+        function Test(){
+            
+            return <button onClick={clickAlert} >Click Me</button>
+        }
+
         class Hello extends React.Component {
             render() {
-                return <div>Hello, Learning RectJs Beginner.</div>;
+                return <div>Hello, Learning RectJs Beginner. <Test/> </div>;
             }
         }
         ReactDOM.render(<Hello/>, document.getElementById("mydiv"));
