@@ -1,16 +1,23 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import capitalize from './Common';
+// import {capitalize} from './Common';
 import { Link } from 'react-router-dom';
 
 export default function Navbar(props) {
 
-  const colorChangeOptions = [
-    {color:"blue", backgroundColor:"blue"},
-    {color:"green", backgroundColor:"green"},
-    {color:"pink", backgroundColor:"pink"},
-    {color:"red", backgroundColor:"red"},
-  ]
+  // function capitalize(word) {
+  //   console.log("Word :: ",word);
+  //   const lower = word.toLowerCase();
+  //   return lower.charAt(0).toUpperCase() + lower.slice(1);
+  // }
+
+  // const colorChangeOptions = [
+  //   {color:"blue", backgroundColor:"primary"},
+  //   {color:"green", backgroundColor:"secondary"},
+  //   {color:"pink", backgroundColor:"danger"},
+  //   {color:"red", backgroundColor:"warning"},
+  //   {color:"red", backgroundColor:"info"},
+  // ]
 
   return (
     <div>
@@ -33,19 +40,21 @@ export default function Navbar(props) {
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
             <button className="btn btn-success" type="submit">Search</button>
           </form> */}
-          <div className='my-6'>
+          {/* <div className='my-6'>
             {colorChangeOptions.map((colorOption, index)=>(
               <button
               key={index}
               onClick={() => props.handleColorChange(colorOption.backgroundColor)}
-              className="btn mx-1"
+              className={`btn mx-2 bg-${colorOption.backgroundColor}`}
               style={{
                 backgroundColor: colorOption.backgroundColor,
                 color: "black",
+                height: "30px",
+                width: "30px"
               }}
-              >{capitalize(colorOption.color)}</button>
+              ></button>
             ))}
-          </div>
+          </div> */}
 
           <div className={`form-check form-switch text-${props.mode === 'dark'? 'light':'dark' }`}>
             <input className="form-check-input" type="checkbox" role="switch" onClick={props.toggleStyleMode} id="flexSwitchCheckDefault" />
