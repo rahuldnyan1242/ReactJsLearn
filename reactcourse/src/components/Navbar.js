@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 // import {capitalize} from './Common';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export default function Navbar(props) {
 
@@ -21,7 +21,7 @@ export default function Navbar(props) {
 
   return (
     <div>
-      <nav className={` navbar navbar-expand-lg bg-body-tertiary bg-${props.mode} custome-Uborder-card`} data-bs-theme={`${props.mode}`}>
+      <nav className={`nav navbar navbar-expand-lg bg-body-tertiary bg-${props.mode} custome-Uborder-card`} data-bs-theme={`${props.mode}`}>
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">{props.title}</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,11 +29,11 @@ export default function Navbar(props) {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+            <li className="nav-item mx-2">
+              <NavLink className={({ isActive }) => (isActive ? 'active' : '')}  aria-current="page" to="/">Home</NavLink>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/about">About</Link>
+            <li className="nav-item mx-2">
+              <NavLink className={({ isActive }) => (isActive ? 'active' : '')} to="/about">About</NavLink>
             </li>
           </ul>
           {/* <form className="d-flex" role="search">

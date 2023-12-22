@@ -58,7 +58,7 @@ export default function TextForm(props) {
         <hr />
         <div className={`container-fluid my-3 text-${props.mode === 'light'? 'dark':'light' }`}>
             <h2>Your Text Summary</h2>
-            <p>Your text has {text.split(" ").filter((element) => { return element.length !==0}).length} words and {text.length} characters.</p>
+            <p>Your text has {text.split(/\s+/).filter((element) => { return element.length !==0}).length} words and {text.length} characters.</p>
             <p>{0.008 * text.split(' ').filter((element) => { return element.length !==0}).length} read time.</p>
             <br />
             <h2>Preview</h2>

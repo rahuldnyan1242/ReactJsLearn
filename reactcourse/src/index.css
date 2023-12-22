@@ -11,3 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.accordion-button::after {
+  filter: invert(1);
+}
+
+.nav a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav a.active {
+  font-weight: bold;
+  color: black;
+  background-color: #d9d9d9;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
