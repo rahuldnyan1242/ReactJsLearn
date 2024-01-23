@@ -1,101 +1,83 @@
 import NoteContext from "./notesContext";
 import { useState } from "react";
 
-const NoteState = (props)=>{
+const NoteState = (props) => {
 
-    // const obj1 = {
-    //     "name": "Rahul",
-    //     "learning": "RactJs"
-    // }
+    const hostURL = "http://localhost:5000/api/notes"
 
-    // const [state, setState] = useState(obj1);
+    const allnotes = []
 
-    // const updateState = setTimeout(()=>{
-    //         setState({
-    //             "name": "Madhur",
-    //             "learning": "Leadership"
-    //         })
-    // }, 1000);
+    const [notes, setNotes] = useState(allnotes);
 
-    const allnotes = [
-        {
-          "_id": "659ff67be741a0f1e4abafd1",
-          "user": "659d4d3959e95488f68945a7",
-          "title": "My First Note",
-          "description": "This is the first note added.",
-          "tag": "Learning",
-          "date": "2024-01-11T14:08:59.876Z",
-          "__v": 0
-        },
-        {
-          "_id": "659ff67ce741a0f1e4abafd3",
-          "user": "659d4d3959e95488f68945a7",
-          "title": "My Third Note",
-          "description": "This is the third note app I am creating",
-          "tag": "General",
-          "date": "2024-01-11T14:09:00.028Z",
-          "__v": 0
-        },
-        {
-          "_id": "65a6376b512e8a025b5d8415",
-          "user": "659d4d3959e95488f68945a7",
-          "title": "New Note",
-          "description": "This is the new not being added.",
-          "tag": "General",
-          "date": "2024-01-16T07:59:39.966Z",
-          "__v": 0
-        },
-        {
-            "_id": "65a6376b512e8a025b5d8415",
-            "user": "659d4d3959e95488f68945a7",
-            "title": "New Note",
-            "description": "This is the new not being added.",
-            "tag": "General",
-            "date": "2024-01-16T07:59:39.966Z",
-            "__v": 0
-          },
-          {
-            "_id": "65a6376b512e8a025b5d8415",
-            "user": "659d4d3959e95488f68945a7",
-            "title": "New Note",
-            "description": "This is the new not being added.",
-            "tag": "General",
-            "date": "2024-01-16T07:59:39.966Z",
-            "__v": 0
-          },
-          {
-            "_id": "65a6376b512e8a025b5d8415",
-            "user": "659d4d3959e95488f68945a7",
-            "title": "New Note",
-            "description": "This is the new not being added.",
-            "tag": "General",
-            "date": "2024-01-16T07:59:39.966Z",
-            "__v": 0
-          },
-          {
-            "_id": "65a6376b512e8a025b5d8415",
-            "user": "659d4d3959e95488f68945a7",
-            "title": "New Note",
-            "description": "This is the new not being added.",
-            "tag": "General",
-            "date": "2024-01-16T07:59:39.966Z",
-            "__v": 0
-          },
-          {
-            "_id": "65a6376b512e8a025b5d8415",
-            "user": "659d4d3959e95488f68945a7",
-            "title": "New Note",
-            "description": "This is the new not being added.",
-            "tag": "General",
-            "date": "2024-01-16T07:59:39.966Z",
-            "__v": 0
-          }
-      ]
+    //Get all notes
+    const fetchAllNotes = async () => {
+        const response = await fetch(`${hostURL}/fetchallnotes`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU5ZDRkMzk1OWU5NTQ4OGY2ODk0NWE3In0sImlhdCI6MTcwNDk4MjAyOX0._BJL_8aMH7bnKG1sJTRUnNwummBIjnnO0q0LnVQXIcw"
+            }
+        });
 
-      const [notes, setNotes] = useState(allnotes);
-    
-    return(
-        <NoteContext.Provider value={{notes, setNotes}}>
+        const notesJson = await response.json();
+        setNotes(notesJson);
+    }
+
+    //Add note
+    const addNote = async (title, description, tag) => {
+        const response = await fetch(`${hostURL}/addNotes`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU5ZDRkMzk1OWU5NTQ4OGY2ODk0NWE3In0sImlhdCI6MTcwNDk4MjAyOX0._BJL_8aMH7bnKG1sJTRUnNwummBIjnnO0q0LnVQXIcw"
+            },
+            body: JSON.stringify({title, description, tag})
+        });
+        const json = await response.json();
+        setNotes(notes.concat(json))
+    }
+
+    //Edit Note
+    const editNote = async (id, title, description, tag) => {
+
+        const response = await fetch(`${hostURL}/updateNote/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU5ZDRkMzk1OWU5NTQ4OGY2ODk0NWE3In0sImlhdCI6MTcwNDk4MjAyOX0._BJL_8aMH7bnKG1sJTRUnNwummBIjnnO0q0LnVQXIcw"
+            },
+            body: JSON.stringify({ title, description, tag })
+        });
+        const json = await response.json();
+
+        for (let i = 0; i < json.length; i++) {
+            const note = json[i];
+            if (note._id === id) {
+                note.title = title;
+                note.description = description;
+                note.tag = tag;
+            }
+
+        }
+
+    }
+
+    //Delete Note
+    const deleteNote = async (id) => {
+        const response = await fetch(`${hostURL}/deleteNote/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU5ZDRkMzk1OWU5NTQ4OGY2ODk0NWE3In0sImlhdCI6MTcwNDk4MjAyOX0._BJL_8aMH7bnKG1sJTRUnNwummBIjnnO0q0LnVQXIcw"
+            }
+        });
+        const json = await response.json();
+        setNotes(json);
+        // ("New allnote :: ", notes)
+    }
+
+    return (
+        <NoteContext.Provider value={{ notes, setNotes, addNote, editNote, deleteNote, fetchAllNotes }}>
             {props.children}
         </NoteContext.Provider>
     )

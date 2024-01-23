@@ -7,7 +7,7 @@ const Navbar = () => {
 //   useEffect(() => {
 //     // Google Analytics
 //     //ga('send', 'pageview');
-//     // console.log(location.pathname);
+//     // (location.pathname);
 //   }, [location]);
     return (
         <nav className="navbar navbar-expand-lg bg-dark">

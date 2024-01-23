@@ -21,7 +21,7 @@ router.post('/addNotes', fetchuser, [
     body('description', 'Description should not be blank').isLength({ min: 10 })
 ], async (req, res) => {
 
-    const { title, description, tag } = req.body;
+    const {title, description, tag} = req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -30,13 +30,15 @@ router.post('/addNotes', fetchuser, [
 
     try {
         const note = new Note({
-            title, description, tag,
+            title, 
+            description, 
+            tag,
             user: req.user.id
         })
         const savedNotes = await note.save();
         res.json(savedNotes);
     } catch (error) {
-        console.log(error.message);
+        console.log("Backend Error ::  ",error.message);
         res.status(500).json({ "Failed": "Internal Server Error", error: error.message });
     }
 })
