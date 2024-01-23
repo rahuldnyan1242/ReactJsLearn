@@ -13,21 +13,24 @@ const JWT_SECRET = 'userjwtsecret';
 // Create a new user route
 router.post('/createUser', [
     body('name', 'Name Should not be empty').notEmpty(),
-    oneOf([body('email').isEmail(), body('phone').isMobilePhone()], {
+    oneOf([body('email').isEmail()], {
         message: "At least one valid contact method must be provided"
     }),
     body('password', 'Password should be atleast 5 characters').isLength({ min: 5 }),
 ], async (req, res) => {
+    let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        res.status(400).json({ errors: errors.array() });
+        success = false;
+        res.status(400).json({ success, errors: errors.array() });
     }
 
     try {
         let user = await User.findOne({ email: req.body.email })
         console.log("Create User :: ", user)
         if (user) {
-            return res.status(400).json({ error: "User with this email already exist" })
+            success = false;
+            return res.status(400).json({ success, error: "User with this email already exist" })
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -35,7 +38,6 @@ router.post('/createUser', [
         user = await User.create({
             name: req.body.name,
             email: req.body.email,
-            phone: req.body.phone,
             password: securedPassword
         })
         const data = {
@@ -44,8 +46,8 @@ router.post('/createUser', [
             }
         }
         const authtoken = jwt.sign(data, JWT_SECRET)
-
-        res.json({ authtoken });
+        success = true;
+        res.json({success, authtoken });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ error: error.message });
@@ -57,24 +59,28 @@ router.post('/login', [
     body('email', 'Email Should not be empty').isEmail(),
     body('password', 'Password should not be blank').exists()
 ], async (req, res) => {
-
+    let success = false;
     const { email, password } = req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        res.status(400).json({ errors: errors.array() });
+        success = false;
+        res.status(400).json({success, errors: errors.array() });
     }
 
     try {
         let user = await User.findOne({ email })
         console.log("Login User :: ", user)
         if (!user) {
-            return res.status(400).json({ error: "Please use valid credentials." })
+            success = false;
+            return res.status(400).json({success, error: "Please use valid credentials." })
         }
 
-        const passwordCompare = bcrypt.compare(password, user.password);
+        const passwordCompare = await bcrypt.compare(password, user.password);
+        console.log("Compare Password :: ", passwordCompare)
         if (!passwordCompare) {
-            return res.status(400).json({ error: "Please use valid credentials." })
+            success = false;
+            return res.status(400).json({success, error: "Please use valid credentials." })
         }
 
         const data = {
@@ -84,12 +90,13 @@ router.post('/login', [
         }
 
         const authtoken = jwt.sign(data, JWT_SECRET)
-
-        res.json({ authtoken });
+        success = true;
+        res.json({success, authtoken });
 
     } catch (error) {
+        success = false;
         console.log(error.message);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({success, error: error.message });
     }
 
 })

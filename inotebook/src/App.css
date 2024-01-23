@@ -32,6 +32,15 @@
   color: #61dafb !important;
 }
 
+.alertDisplay {
+  /* margin-top: 4rem; */
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  /* width: 100%; */
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -4,18 +4,19 @@ import Noteitem from './Noteitem';
 import AddNote from "./AddNote"
 // import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
-const Note = () => {
+const Note = (props) => {
 
     const context = useContext(noteContext);
     const { notes, fetchAllNotes, editNote } = context;
     const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
     const ref = useRef(null);
     const refClose = useRef(null);
+    const {showAlert}=props;
 
     useEffect(() => {
-        ("Getting all notes...");
+        // console.log("Getting all notes...");
         fetchAllNotes()
-    }, [fetchAllNotes])
+    })
 
     const updateNote = (currentNote) => {
         ref.current.click();
@@ -27,11 +28,11 @@ const Note = () => {
         });
     }
 
-
-    const handleAddNoteClick = (e) => {
+    const handleUpdateNoteClick = (e) => {
         e.preventDefault();
         editNote(note.id, note.etitle, note.edescription, note.etag);
         refClose.current.click();
+        props.showAlert("User note is updated successfully", "success");
     }
 
     const onChange = (e) => {
@@ -40,7 +41,7 @@ const Note = () => {
 
     return (
         <>
-            <AddNote />
+            <AddNote showAlert={showAlert} />
             <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
             </button>
@@ -71,7 +72,7 @@ const Note = () => {
                         </div>
                         <div className="modal-footer">
                             <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={handleAddNoteClick}>Update Note</button>
+                            <button type="button" className="btn btn-primary" onClick={handleUpdateNoteClick}>Update Note</button>
                         </div>
                     </div>
                 </div>
@@ -80,7 +81,7 @@ const Note = () => {
             <div className="row my-3">
                 <h2>Your Notes</h2>
                 {notes.map((note) => {
-                    return <Noteitem key={note._id} updateNote={updateNote} note={note} />
+                    return <Noteitem showAlert={showAlert} key={note._id} updateNote={updateNote} note={note} />
                 })}
             </div>
         </>
