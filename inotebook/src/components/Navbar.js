@@ -1,8 +1,15 @@
 import React from 'react'
 import { Link, useLocation } from "react-router-dom";
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 const Navbar = () => {
     let location = useLocation();
+    let history = useHistory();
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        history.push('/login')
+    }
 
     //   useEffect(() => {
     //     // Google Analytics
@@ -25,10 +32,11 @@ const Navbar = () => {
                             <Link className={`nav-link text-light ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
-                        <Link className="btn btn-sm btn-primary mx-1" to="/login" role="button">Login</Link>
-                        <Link className="btn btn-sm btn-primary mx-1" to="/signup" role="button">Signup</Link>
-                    </form>
+                    
+                    {!localStorage.getItem("token")?
+                    <form className="d-flex"> 
+                    <Link className="btn btn-sm btn-primary mx-1" to="/login" role="button">Login</Link>
+                    <Link className="btn btn-sm btn-primary mx-1" to="/signup" role="button">Signup</Link> </form> : <button className='btn btn-primary' onClick={handleLogout}>Logout</button>}
                 </div>
             </div>
         </nav>

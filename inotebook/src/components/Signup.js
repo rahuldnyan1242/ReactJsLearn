@@ -29,6 +29,7 @@ const Signup = (props) => {
   }
 
   const onChange = (e) => {
+    console.log("onChange password :", credentials.password); 
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
   }
   return (

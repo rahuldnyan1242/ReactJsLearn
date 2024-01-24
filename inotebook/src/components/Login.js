@@ -23,6 +23,8 @@ const Login = (props) => {
             history.push('/')
             showAlert("Logged in successfully", "success");
         }else {
+            localStorage.removeItem("token");
+            // history.push('/login')
             showAlert("Invalid Credentials.", "danger")
         }
     }
@@ -43,7 +45,7 @@ const Login = (props) => {
                     <label htmlFor="password">Password</label>
                     <input type="password" className="form-control" id="password" name='password' placeholder="Password" onChange={onChange}/>
                 </div>
-                <button type="submit" className="btn btn-primary">Login</button>
+                <button disabled={credentials.email.length===0 || credentials.password.length===0} type="submit" className="btn btn-primary">Login</button>
             </form>
         </div>
     )
