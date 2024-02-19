@@ -1,42 +1,100 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+h4 {
+  font-family: Garamond;
+  font-weight: 900;
+  margin: 2rem;
+}
+
+.select-container {
+  margin: 3rem auto;
+  padding: 10px;
+  width: 30rem;
+  height: 45rem;
   text-align: center;
+  border-radius: 20px;
+  box-shadow: 0px 0px 30px #000000;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.user-select-container {
+  display: flex;
+  flex-direction: column;
+  /* position: relative; */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.user-select-input {
+  width: 100%;
+  display: flex;
+  /* position: absolute; */
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.user-select-input input {
+  border: none;
+  padding: 5px;
+  width: 100%;
 }
 
-.card {
-  padding: 2em;
+.user-select-input input:focus {
+  outline: none;
 }
 
-.read-the-docs {
-  color: #888;
+.suggestions {
+  /* outline: 1px solid red; */
+  /* position: absolute; */
+  text-align: center;
+  width: 100%;
+  max-height: 400px;
+  overflow: scroll;
+  scrollbar-width: none;
+  list-style: none;
+  padding: 0 10px;
+  margin: 10px auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px;
+}
+
+.suggestions li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 5px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  margin: 10px 0;
+}
+
+.suggestions li:hover {
+  background-color: #99e6ff;
+  box-shadow: inset 0px 0px 15px #00ace6, 0 0 5px #ccc;
+}
+
+/* 
+.suggestions li:last-child {
+  border-bottom: none;
+} */
+
+.suggestions li img {
+  height: 20px;
+}
+
+.userPill {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 2px;
+  padding: 14px;
+  border-radius: 20px;
+  background-color: #e0b3ff;
+  cursor: pointer;
+}
+
+.userPill img {
+  height: 20px;
 }
