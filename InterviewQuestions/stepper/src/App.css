@@ -1,0 +1,81 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 5rem;
+}
+
+h2 {
+    margin-bottom: 2rem;
+}
+
+.stepper {
+    display: flex;
+    justify-content: space-between;
+    outline: 1px solid;
+    padding: 1rem 3rem;
+    text-align: center;
+    width: 85%;
+    margin: auto;
+    border-radius: 50px;
+}
+
+.step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.step-number {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    z-index: 2;
+}
+
+.step-name {
+    font-size: 14px;
+}
+
+.componentInfo {
+    width: 85%;
+    margin: 3rem auto;
+    text-align: center;
+    padding: 1rem;
+    font-size: 3rem;
+}
+
+.complete {
+    .step-number {
+        background-color: #00cc00;
+        color: #fff;
+    }
+    .step-name {
+        font-weight: bold;
+    }
+}
+
+.active .step-number {
+    background-color: #66b3ff;
+    color: #fff;
+}
+
+.progress-bar {
+    position: absolute;
+    /* width: 80%; */
+    background-color: #ccc;
+    /* left: 0; */
+    top: 21%;
+    height: 8px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #00cc00;
+    transition: 0.2s ease;
+}
